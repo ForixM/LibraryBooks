@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/index.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero-block text-center">
+        <div class="hero-text-container">
+            <h1 class="slide-in-top">WELCOME TO YOUR BOOK LIBRARY !</h1>
+            <h2 class="slide-in-top">A library where you can store all your preferred books</h2>
+            <a class="slide-in-bottom aButton" href="{% url 'book:create' %}">CREATE YOUR BOOK</a>
+        </div>
+    </header>
+    <section class="container-flexbox">
+        {% if library %}
+            {% for book in library %}
+                <a class="book" href="{% url 'book:book' book.id %}">{{ book.title }}</a>
+{#                <div class="book">#}
+{#                    <h2>{{ book.title }}</h2>#}
+{#                    <a href="{% url 'book:book' book.id %}">Info</a>#}
+{#                </div>#}
+            {% endfor %}
+        {% else %}
+            <h3 class="empty">There is no book in your library</h3>
+        {% endif %}
+    </section>
+</body>
+</html>

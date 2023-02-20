@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create your book</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/edit.css' %}">
+</head>
+<body>
+    <form action="{% url 'book:edit' id %}" method="post">
+        {% csrf_token %}
+        <h1>Enter your book informations</h1>
+        <p>{{ test }}</p>
+        <input name="in1" value="{{ title }}" placeholder="Book Name">
+        <input name="in2" value="{{ author }}" placeholder="Author">
+        <input name="in3" value="{{ num_pages }}" placeholder="Number of pages">
+        <input type="submit" value="Validate">
+        <a class="aButton" href="{% url 'book:index' %}">Menu</a>
+        <a class="aButton" href="{% url 'book:book' id %}">Back to book</a>
+    </form>
+</body>
+</html>

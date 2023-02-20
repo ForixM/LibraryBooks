@@ -1,0 +1,16 @@
+.aButton{
+    background-color: #555555;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.aButton:hover{
+    background-color: #444;
+}
+
+.aButton:active{
+    background-color: #333;
+}
