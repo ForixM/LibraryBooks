@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Confirm delete</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/delete.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <section class="centered">
+        <h1>ARE YOU SURE TO DELETE THE BOOK?</h1>
+        <form action="{% url 'book:delete' book.id %}" method="post">
+            {% csrf_token %}
+            <input name="delete" type="submit" value="YES">
+            <input name="cancel" type="submit" value="NO">
+        </form>
+    </section>
 
 </body>
 </html>

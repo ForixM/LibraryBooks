@@ -10,6 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="header">
+        {% if user.is_authenticated %}
+            <h1>Hello {{ user.username }}</h1>
+{#            <a href="{% url 'password_reset' %}">Reset Password</a>#}
+            <a href="{% url 'accounts:logout' %}">Logout</a>
+        {% else %}
+            <a href={% url 'accounts:login' %}>Login</a>
+            <a href="{% url 'accounts:signup' %}">Register</a>
+        {% endif %}
+
+    </div>
     <header class="hero-block text-center">
         <div class="hero-text-container">
             <h1 class="slide-in-top">WELCOME TO YOUR BOOK LIBRARY !</h1>
@@ -17,17 +28,18 @@
             <a class="slide-in-bottom aButton" href="{% url 'book:create' %}">CREATE YOUR BOOK</a>
         </div>
     </header>
+    <form action="{% url 'book:index' %}" method="post">
+        {% csrf_token %}
+        <input name="titleSearched" type="text" placeholder="title">
+        <input type="submit" value="Search">
+    </form>
     <section class="container-flexbox">
         {% if library %}
             {% for book in library %}
                 <a class="book" href="{% url 'book:book' book.id %}">{{ book.title }}</a>
-{#                <div class="book">#}
-{#                    <h2>{{ book.title }}</h2>#}
-{#                    <a href="{% url 'book:book' book.id %}">Info</a>#}
-{#                </div>#}
             {% endfor %}
         {% else %}
-            <h3 class="empty">There is no book in your library</h3>
+            <h3 class="empty">You must be logged in.</h3>
         {% endif %}
     </section>
 </body>

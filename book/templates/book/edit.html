@@ -4,19 +4,32 @@
     <meta charset="UTF-8">
     <title>Create your book</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'book/edit.css' %}">
+    <link rel="stylesheet" href="{% static 'book/create.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form action="{% url 'book:edit' id %}" method="post">
-        {% csrf_token %}
-        <h1>Enter your book informations</h1>
-        <p>{{ test }}</p>
-        <input name="in1" value="{{ title }}" placeholder="Book Name">
-        <input name="in2" value="{{ author }}" placeholder="Author">
-        <input name="in3" value="{{ num_pages }}" placeholder="Number of pages">
-        <input type="submit" value="Validate">
-        <a class="aButton" href="{% url 'book:index' %}">Menu</a>
-        <a class="aButton" href="{% url 'book:book' id %}">Back to book</a>
-    </form>
+    <div class="hero-block">
+        <form action="{% url 'book:edit' book.id %}" method="post">
+            {% csrf_token %}
+            <h1>EDIT YOUR BOOK</h1>
+            <div class="inputs">
+                <div class="champs">
+                    <label>Title:</label>
+                    <label>Author:</label>
+                    <label>Number of pages:</label>
+                </div>
+                <div class="champs2">
+                    <input name="title" type="text" value="{{ book.title }}">
+                    <input name="author" type="text" value="{{ book.author }}">
+                    <input name="num_pages" type="number" value="{{ book.num_pages }}">
+                </div>
+            </div>
+            <input name="edit" class="submit-input" type="submit" value="Validate">
+            <input name="cancel" class="submit-input" type="submit" value="Cancel">
+        </form>
+    </div>
 </body>
 </html>

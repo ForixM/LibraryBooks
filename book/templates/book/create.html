@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Create your book</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/create.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form action="{% url 'book:create' %}" method="post">
-        {% csrf_token %}
-        <h1>Enter your book informations</h1>
-        <p>{{ test }}</p>
-        <input name="in1" placeholder="Book Name">
-        <input name="in2" placeholder="Author">
-        <input name="in3" placeholder="Number of pages">
-        <input type="submit" value="Validate">
-    </form>
+    <div class="hero-block">
+        <form action="{% url 'book:create' %}" method="post">
+            {% csrf_token %}
+            <h1>CREATE YOUR BOOK</h1>
+            <div class="inputs">
+                <div class="champs">
+                    <label>Title:</label>
+                    <label>Author:</label>
+                    <label>Number of pages:</label>
+                </div>
+                <div class="champs2">
+                    <input name="title" type="text">
+                    <input name="author" type="text">
+                    <input name="num_pages" type="number">
+                </div>
+            </div>
+            <input class="submit-input" type="submit" value="Validate">
+        </form>
+    </div>
 </body>
 </html>

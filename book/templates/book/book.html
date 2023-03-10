@@ -5,38 +5,46 @@
     <title>Title</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'book/book.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
-        {% if book %}
-        <section class="container-flexbox">
-            <div class="book">
-                <div class="title">
-                    <h1>{{ book.title }}</h1>
+        {% if user.id == book.user_id.id %}
+            {% if book %}
+            <section class="container-flexbox">
+                <div class="book">
+                    <div class="title">
+                        <h1>{{ book.title }}</h1>
+                    </div>
+                    <div class="informations">
+                        <div class="labels">
+                            <label>Author:</label>
+                            <label>Publication date:</label>
+                            <label>Number of pages:</label>
+                        </div>
+                        <div class="values">
+                            <label>{{ book.author }}</label>
+                            <label>{{ book.publication_date }}</label>
+                            <label>{{ book.num_pages }}</label>
+                        </div>
+                    </div>
+
                 </div>
-                <h2 class="info"><span>Author:</span> {{ book.author }}</h2>
-                <h2 class="info"><span>Publication date:</span> {{ book.publication_date }}</h2>
-                <h2 class="info"><span>Number of pages:</span> {{ book.num_pages }}</h2>
-            </div>
-            <div class="buttons">
-                <a class="aButton" href="{% url 'book:index' %}">MENU</a>
-                <a class="aButton" href="{% url 'book:edit' bookId %}">EDIT</a>
-                <a class="aButton" href="{% url 'book:delete' bookId %}">DELETE</a>
-            </div>
-        </section>
+                <div class="buttons">
+                    <a class="aButton" href="{% url 'book:index' %}">MENU</a>
+                    <a class="aButton" href="{% url 'book:edit' book.id %}">EDIT</a>
+                    <a class="aButton" href="{% url 'book:delete' book.id %}">DELETE</a>
+                </div>
+            </section>
+            {% else %}
+                <h1>There is no book here...</h1>
+            {% endif %}
         {% else %}
-            <h1>There is no book here...</h1>
+            <p>Not allowed</p>
         {% endif %}
     </main>
-{#    <h1>WELCOME TO THE BOOK MENU</h1>#}
-{#    {% if book %}#}
-{#        <p><span>Title:</span> {{ book.title }}</p>#}
-{#        <p><span>Author:</span> {{ book.author }}</p>#}
-{#        <p><span>Publication date:</span> {{ book.publication_date }}</p>#}
-{#        <p><span>Number of pages:</span> {{ book.num_pages }}</p>#}
-{#    {% else %}#}
-{#        <p>There is nothing</p>#}
-{#    {% endif %}#}
-{#    <p><a href="{% url 'book:index' %}">Return to library</a></p>#}
 </body>
 </html>

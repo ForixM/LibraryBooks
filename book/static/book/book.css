@@ -13,6 +13,9 @@ main{
     flex-wrap: wrap;
     flex-direction: column;
     width: fit-content;
+    /*background-color: green;*/
+    max-width: 100%;
+    min-width: 60%;
 }
 
 .buttons{
@@ -23,11 +26,11 @@ main{
     margin-top:-10px;
     column-gap: 54px;
     box-sizing: border-box;
-    width: 100%;
+    width: 60%;
 }
 
 .book{
-    background-color: white;
+    background-color: #16161a;
     border: solid 2px black;
     padding: 20px 20px 50px 20px;
     margin-bottom: 42px;
@@ -36,46 +39,80 @@ main{
     justify-content: space-around;
     align-items: center;
     border-radius: 10px;
+    max-width: 60%;
+}
+
+.informations{
+    display: flex;
+    flex-direction: row;
+}
+
+.labels{
+    /*background-color: red;*/
+    display: flex;
+    flex-direction: column;
+}
+
+
+.book label{
+    color: white;
+    margin: 10px 50px;
+    font-size: 30px;
+    font-family: "Oswald", Arial, sans-serif;
+}
+
+.labels label{
+    color: #94a1b2;
+}
+
+.values{
+    /*background-color: green;*/
+    display: flex;
+    flex-direction: column;
 }
 
 .title{
     display: flex;
-    background-color: darkgray;
     flex-direction: column;
     padding: 0px 40px 0px 40px;
     margin-top: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     border-radius: 10px;
     justify-content: center;
     align-items: center;
+    /*background-color: red;*/
+    max-width: 100%;
 }
 
 .info{
     margin: 20px 0px;
     padding: 15px;
+    color: white;
     border-radius: 5px;
-    border-left: solid 10px black;
-    background-color: darkgray;
     min-width: 50vh;
 }
 
 body{
-    background-color: lightgray;
+    background-color: #242629;
 }
 
 h1 {
-    font-family: Arial, sans-serif;
-    font-size: 84px;
+    max-width: 100%;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    font-family: "Golos Text", Arial, serif;
+    font-size: 95px;
     text-align: center;
     font-weight: normal;
     letter-spacing: -2px;
     margin-bottom: 10px;
     margin-top: 10px;
-    color: red;
+    color: #fffffe;
 }
 
 h2{
-    font-family: Arial, sans-serif;
+    font-family: "Oswald", Arial, sans-serif;
+    font-size: 30px;
 }
 
 p{
@@ -84,7 +121,7 @@ p{
 }
 
 span{
-    color: #555555;
+    color: #94a1b2;
 }
 
 button{
@@ -94,14 +131,14 @@ button{
 }
 
 .aButton{
-    background-color: #555555;
-    text-decoration: none;
+    background-color: #7f5af0;
     color: white;
+    text-decoration: none;
     border-radius: 5px;
     padding: 15px 20px;
     text-align: center;
     font-size: 30px;
-    font-family: Arial;
+    font-family: Arial, serif;
     height: fit-content;
 
     transition: 0.2s;
@@ -109,13 +146,20 @@ button{
 }
 
 .aButton:hover{
-    background-color: #444;
+    background-color: #6f4ae0;
     box-shadow: #000000BB 5px 5px 3px;
+    text-decoration: none;
     transition: 0.2s;
 }
 
 .aButton:active{
-    background-color: #333;
+    background-color: #4f2ac0;
     transition: 0.3s;
+    text-decoration: none;
     box-shadow: none;
+}
+
+.aButton:enabled{
+    text-decoration: none;
+
 }

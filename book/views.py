@@ -1,78 +1,130 @@
 from django.views import generic
 from .models import Book
-from django.shortcuts import render, HttpResponseRedirect, reverse
-from django.utils import timezone
+from django.shortcuts import render, HttpResponseRedirect, reverse, get_object_or_404, redirect
 
-#The main page view. All books that are stored in the database will be returned as a queryset usable in the HTML code.
-class LibraryBook(generic.ListView):
+from .forms import EditBookForm, CreateBookForm, SearchBookForm
+
+
+# The main page view. All books that are stored in the database will be returned as a queryset usable in the HTML code.
+class LibraryBook(generic.FormView):
     template_name = "book/index.html"
-    context_object_name = "library"
+    form_class = SearchBookForm
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        if self.request.user.is_authenticated:
+            return {
+                'library': Book.objects.filter(user_id_id=self.request.user.id)
+            }
+        else:
+            return None
+
+    def form_valid(self, form):
+        print('valid: ', form.search_books())
+        return super().form_valid(form)
+
+    # def get_queryset(self):
+    #     if self.request.user.is_authenticated:
+    #         return Book.objects.filter(user_id_id=self.request.user.id)
+    #     else:
+    #         return None
+
+# This view will retrieve the book id from the url, and tries to find it in the database.
+# If the book exists in the database, the view with the book informations will be displayed.
+# Otherwise, the page will be automatically redirected to the main page (LibraryBook view).
+class ViewBook(generic.ListView):
+    template_name = "book/book.html"
+    context_object_name = "book"
+
     def get_queryset(self):
-        return Book.objects.all()
+        self.book = get_object_or_404(Book, pk=self.kwargs['bookId'])
+        return self.book
 
-#This view have a form to edit book informations in the database
-def editBook(request, num):
-    #Used to retrieve the book in the database. An error will be raised if the book don't exists
-    book = Book.objects.get(pk=num)
-    try:
-        #These three variables will retrieve the content of the inputs elements
-        in1 = request.POST['in1']
-        in2 = request.POST['in2']
-        in3 = request.POST['in3']
-    except (KeyError, Book.DoesNotExist):
-        return render(request, 'book/edit.html', {
-            "title": book.title,
-            "author": book.author,
-            "num_pages": book.num_pages,
-            "id": num,
-        })
-    else:
-        #The book will be updated regarding the three variables (in1, in2, in3) retrieved previously
-        book.title = in1
-        book.author = in2
-        book.num_pages = in3
-        book.save()
-        #The page will be redirected to the updated book informations view (book:book)
-        return HttpResponseRedirect(reverse('book:book', args=(num,)))
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            book = Book.objects.get(pk=self.kwargs['bookId'])
+        except(KeyError, Book.DoesNotExist):
+            return redirect('/books/')
+        if self.request.user.id != book.user_id.id:
+            return redirect('/books/')
+        return super().dispatch(request, *args, **kwargs)
 
-#This view has a form in order to create a book.
-def createBook(request):
-    try:
-        #The three text inputs in the HTML file will have their content retrieved into these three variables
-        in1 = request.POST['in1']
-        in2 = request.POST['in2']
-        in3 = request.POST['in3']
-    except (KeyError, Book.DoesNotExist):
-        return render(request, 'book/create.html', {
-            "test": Book()
-        })
-    else:
-        #A new book will be created and saved in the database. timezone will be used to set the creation date of the book
-        #at the time it will be inserted into the database. After that, the page will be redirected to the main page
-        now = timezone.now()
-        newBook = Book(title=in1, author=in2, publication_date=now, num_pages=int(in3))
-        newBook.save()
-        return HttpResponseRedirect(reverse('book:index'))
+# This view have a form to edit book informations in the database
+class EditBookView(generic.FormView):
+    template_name = 'book/edit.html'
+    form_class = EditBookForm
 
-#This view will retrieve the book id from the url, and tries to find it in the database.
-#If the book exists in the database, the view with the book informations will be displayed.
-#Otherwise, the page will be automatically redirected to the main page (LibraryBook view).
-def book(request, num):
-    try:
-        toReturn = Book.objects.get(pk=num)
-        return render(request, 'book/book.html', {
-            'book': toReturn,
-            'bookId': toReturn.id
-        })
-    except(KeyError, Book.DoesNotExist):
-        return HttpResponseRedirect(reverse('book:index'))
+    def get_book(self):
+        try:
+            num = self.kwargs['num']
+            book = Book.objects.get(pk=num)
+            return book
+        except(KeyError, Book.DoesNotExist):
+            return None
 
-#This view have the only purpose to delete a book from the database only if it is found. In all case, the page
-#will be redirected to the main page (LibraryBook view).
+    def get_context_data(self, **kwargs):
+        try:
+            book = self.get_book()
+        except(KeyError, Book.DoesNotExist):
+            return HttpResponseRedirect(reverse('book:index'))
+        return {
+            'book': book
+        }
+
+    def form_valid(self, form):
+        book = self.get_book()
+        if 'edit' in self.request.POST:
+            form.updateBook(book)
+        return HttpResponseRedirect(reverse('book:book', args=(book.id,)))
+
+    def get_success_url(self):
+        return reverse('book:book', args=(self.kwargs['num']))
+
+    def dispatch(self, request, *args, **kwargs):
+        book = self.get_book()
+        if book is None or not self.request.user.is_authenticated and book.user_id.id != self.request.user.id:
+            return HttpResponseRedirect(reverse('book:index'))
+        return super().dispatch(request, *args, **kwargs)
+
+#This generic form view will create a book and add it to the database
+class CreateBookView(generic.FormView):
+    template_name = 'book/create.html'
+    form_class = CreateBookForm #The form that the view will be based. It is located in forms.py
+    success_url = '/'
+
+    def form_valid(self, form):
+        #This function will be called when the user will submit the form
+        book = form.createBook(self.request.user)
+        return HttpResponseRedirect(reverse('book:book', args=(book.id,)))
+
+    def dispatch(self, request, *args, **kwargs):
+        #This function is called before the page will be sent in order to verify if the user is authenticated
+        #Otherwise, it will redirect it to the main page.
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('book:index'))
+        return super().dispatch(request, *args, **kwargs)
+
+
+# This view have the only purpose to delete a book from the database only if it is found. In all case, the page
+# will be redirected to the main page (LibraryBook view).
 def confirmDelete(request, num):
-    try:
-        toReturn = Book.objects.get(pk=num)
-        toReturn.delete()
-    except(KeyError, Book.DoesNotExist):
+    if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('book:index'))
-    return HttpResponseRedirect(reverse('book:index'))
+    try:
+        print('book id: ' + str(num))
+        toReturn = Book.objects.get(pk=num)
+        if toReturn.user_id.id != request.user.id:
+            print('not allowed')
+            return HttpResponseRedirect(reverse('book:index'))
+        if request.method == 'POST':
+            if 'delete' in request.POST:
+                toReturn.delete()
+                return HttpResponseRedirect(reverse('book:index'))
+            if 'cancel' in request.POST:
+                return HttpResponseRedirect(reverse('book:book', args=(toReturn.id,)))
+        return render(request, 'book/delete.html', {
+            'book': toReturn
+        })
+    except(KeyError, Book.DoesNotExist):
+        print('does not exist')
+        return HttpResponseRedirect(reverse('book:index'))
