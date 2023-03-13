@@ -9,17 +9,17 @@ class Book(models.Model):
     test = models.Field
     publication_date = models.DateTimeField('date published')
     num_pages = models.IntegerField()
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='related_primary_manual_roats')
+    description = models.CharField(max_length=1000)
+    gender = models.CharField(max_length=50)
+    price = models.FloatField()
 
-    def __str__(self):
-        return "{ title=(" + str(self.title) + "), author=(" + str(self.author) + ", num_pages=(" + str(
-            self.num_pages) + "), publication_date=(" + str(self.publication_date) + ")}"
+    # ManyToManyField behave like a list. It will store a queryset of foreign key of User to know which user purchased
+    # the book.
+    purchasers = models.ManyToManyField(User, related_name='related_secondary_manual_roats')
 
 
 # This model will store the wallet information of each user to give them the capability to buy books from the store
 class Wallet(models.Model):
     balance = models.FloatField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "account=" + str(self.owner) + ", balance=" + str(self.balance)

@@ -2,45 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Library</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'book/index.css' %}">
+{#    <link rel="stylesheet" href="{% static 'book/shop.css' %}">#}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="header">
         {% if user.is_authenticated %}
-            <h1>Hello {{ user.username }}</h1>
-{#            <a href="{% url 'password_reset' %}">Reset Password</a>#}
+            <div>
+                <img class="image" src="{% static 'book/icon.png' %}">
+                <h1>Hello {{ user.username }}</h1>
+            </div>
             <a href="{% url 'accounts:logout' %}">Logout</a>
         {% else %}
-            <a href={% url 'accounts:login' %}>Login</a>
+            <div>
+                <img class="image" src="{% static 'book/icon.png' %}">
+                <a href={% url 'accounts:login' %}>Login</a>
+            </div>
             <a href="{% url 'accounts:signup' %}">Register</a>
         {% endif %}
-
     </div>
     <header class="hero-block text-center">
         <div class="hero-text-container">
             <h1 class="slide-in-top">WELCOME TO YOUR BOOK LIBRARY !</h1>
             <h2 class="slide-in-top">A library where you can store all your preferred books</h2>
             <a class="slide-in-bottom aButton" href="{% url 'book:create' %}">CREATE YOUR BOOK</a>
+            <a class="slide-in-bottom aButton" href="{% url 'book:shop' %}">BUY A BOOK</a>
         </div>
     </header>
-    <form action="{% url 'book:index' %}" method="post">
-        {% csrf_token %}
-        <input name="titleSearched" type="text" placeholder="title">
-        <input type="submit" value="Search">
-    </form>
-    <section class="container-flexbox">
-        {% if library %}
-            {% for book in library %}
-                <a class="book" href="{% url 'book:book' book.id %}">{{ book.title }}</a>
-            {% endfor %}
-        {% else %}
-            <h3 class="empty">You must be logged in.</h3>
-        {% endif %}
+
+    <section class="menu">
+        <div class="card">
+            <h2>Your books</h2>
+            <p>You can see here the books that you have created and sold on the shop</p>
+            <div class="tags">
+                <a href="{% url 'book:ownedBooks' %}">See your books</a>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Purchased books</h2>
+            <p>You can see here books that you have purchased on the shop. You can also see your creations as you want !</p>
+            <div class="tags">
+                <a href="{% url 'book:purchasedBooks' %}">See purchased books</a>
+            </div>
+        </div>
     </section>
+
+    <footer>
+        <p>You got this</p>
+    </footer>
 </body>
 </html>

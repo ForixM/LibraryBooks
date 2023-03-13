@@ -12,11 +12,7 @@ class SignUpView(generic.CreateView):
     template_name = "registration/signup.html"
 
     def form_valid(self, form):
-        print(self.request.user.is_authenticated)
-        # print(self.request.user)
         self.object = form.save()
-        print(self.object)
         wallet = Wallet(owner=self.object, balance=50.0)
         wallet.save()
-        # wallet = Wallet(self.request.user)
         return HttpResponseRedirect(self.get_success_url())

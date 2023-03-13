@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if owned %}
+        <title>Owned books</title>
+    {% else %}
+        <title>Purchased books</title>
+    {% endif %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/shop.css' %}">
+    <link rel="stylesheet" href="{% static 'book/books.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <section class="actions">
+        {% if owned %}
+            <a href="{% url 'book:create' %}">CREATE YOUR BOOK</a>
+            <a href="{% url 'book:shop' %}">BUY A BOOK</a>
+            <a href="{% url 'book:purchasedBooks' %}">SEE PURCHASED BOOKS</a>
+        {% else %}
+            <a href="{% url 'book:shop' %}">BUY A BOOK</a>
+            <a href="{% url 'book:ownedBooks' %}">SEE YOUR BOOKS</a>
+        {% endif %}
+        <a href="{% url 'book:index' %}">MENU</a>
+    </section>
+    <section class="shop">
+        {% if library %}
+            {% for book in library %}
+                <div class="book">
+                    <div class="book-header">
+                        <h2 class="title">{{ book.title }}</h2>
+                        <div class="right">
+                            <h2 class="gender">{{ book.gender }}</h2>
+                            <p>{{ book.num_pages }} pages</p>
+                        </div>
+                    </div>
+                    <div class="book-paragraph">
+                        <p>{{ book.description }}</p>
+                        <p>{{ book.publication_date }}</p>
+                    </div>
+                    {% if owned %}
+                        <div class="book-footer">
+                            <a href="{% url 'book:delete' book.id %}">DELETE</a>
+                            <a href="{% url 'book:edit' book.id %}">EDIT</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            {% if owned %}
+                <h1 class="error">You don't own any book.</h1>
+            {% else %}
+                <h1 class="error">You didn't purchased any book.</h1>
+            {% endif %}
+        {% endif %}
+    </section>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Shop</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/shop.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>BOOKS ON SALE</h1>
+    <section class="wallet">
+        {% if wallet %}
+            <h2>YOUR WALLET: {{ wallet.balance }} €</h2>
+        {% endif %}
+        {% if not user.is_authenticated %}
+            <h2>You must be logged-in to buy a book.</h2>
+        {% endif %}
+    </section>
+    <section class="actions">
+        <a href="{% url 'book:ownedBooks' %}">OWNED BOOKS</a>
+        <a href="{% url 'book:purchasedBooks' %}">PURCHASED BOOKS</a>
+        <a href="{% url 'book:index' %}">MENU</a>
+    </section>
+    <section class="shop">
+        {% if books %}
+            {% for book, value in books.items %}
+                <div class="book">
+                    <div class="book-header">
+                        <h2 class="title">{{ book.title }}</h2>
+                        <h2 class="gender">{{ book.gender }}</h2>
+                    </div>
+                    <div class="book-paragraph">
+                        <p>{{ book.description }}</p>
+                    </div>
+                    <div class="book-footer">
+                        <h3>{{ book.price }} €</h3>
+                        {% if value %}
+                            <h3>Already bought</h3>
+                        {% elif user.is_authenticated %}
+                            <a href="{% url 'book:buyBook' book.id %}">BUY</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>There is no book for sale.</h1>
+        {% endif %}
+    </section>
+</body>
+</html>

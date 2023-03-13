@@ -1,0 +1,129 @@
+body{
+    background-color: #0f0e17;
+}
+
+h1{
+    text-align: center;
+    color: white;
+    font-family: "Comfortaa", serif;
+    font-weight: bold;
+    font-size: 70px;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+}
+
+.wallet h2{
+    text-align: center;
+    color: #fffffe;
+    font-family: "Comfortaa", serif;
+    font-size: 30px;
+    margin-bottom: 3%;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.actions a {
+    text-decoration: none;
+    background-color: #ff8906;
+    color: #fffffe;
+    padding: 10px 15px;
+    border-radius: 3px;
+    font-family: "Golos Text", serif;
+    font-size: 20px;
+    margin: 0 40px;
+}
+
+.shop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.book{
+    background-color: #fffffe;
+    color: #0f0e17;
+    text-decoration: none;
+    margin: 20px;
+    padding: 10px 30px;
+    border-radius: 7px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+    font-family: "Golos Text", serif;
+    max-width: 20%;
+    min-width: 20%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.book-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title{
+    font-size: 40px;
+    align-self: center;
+    max-width: 70%;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.gender{
+    /*align-self: center;*/
+    /*background-color: green;*/
+    margin-bottom: 10px;
+    color: #e53170;
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    /*background-color: red;*/
+}
+
+.right p {
+    margin-top: 0;
+    /*background-color: green;*/
+}
+
+.book-paragraph p{
+    text-align: justify;
+}
+
+.book-footer{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.book-footer a, input{
+    all: unset;
+    cursor: pointer;
+    text-align: center;
+    align-self: center;
+    /*margin-left: 15%;*/
+    font-size: 20px;
+    background-color: #ff8906;
+    color: #fffffe;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.book-footer input{
+    width: 60px;
+}

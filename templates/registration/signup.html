@@ -1,12 +1,70 @@
-{% extends "base.html" %}
+{#{% extends "base.html" %}#}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/singup.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Sign up</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="id_username">Username:</label>
+            <input id="id_username" type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="">
+            <span class="helptext">
+                Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+            </span>
+        </p>
+        <p>
+            <label for="id_password1">Password:</label>
+            <input id="id_password1" type="password" name="password1" autocomplete="new-password" required="">
+            <span class="helptext"></span>
+        </p>
+        <ul>
+            <li>
+                Your password can’t be too similar to your other personal information.
+            </li>
+            <li>
+                Your password must contain at least 8 characters.
+            </li>
+            <li>
+                Your password can’t be a commonly used password.
+            </li>
+            <li>
+                Your password can’t be entirely numeric.
+            </li>
+        </ul>
+        <p></p>
+        <p>
+            <label for="id_password2">Password confirmation:</label>
+            <input id="id_password2" type="password" name="password2" autocomplete="new-password" required="">
+            <span class="helptext">
+                Enter the same password as before, for verification.
+            </span>
+        </p>
+{#        {{ form.as_p }}#}
+        <div>
+            <button type="submit">Sign Up</button>
+            <a href="{% url 'book:index' %}">Menu</a>
+        </div>
+    </form>
+</body>
+</html>
 
-{% block title %}Sign Up{% endblock %}
-
-{% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
-{% endblock %}
+{#{% block content %}#}
+{#    <section>#}
+{#        <h1>Sign up</h1>#}
+{#        <form method="post">#}
+{#            {% csrf_token %}#}
+{#            {{ form.as_p }}#}
+{#            <button type="submit">Sign Up</button>#}
+{#        </form>#}
+{#    </section>#}
+{#{% endblock %}#}

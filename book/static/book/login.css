@@ -1,0 +1,40 @@
+body{
+    background-color: #232946;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    font-size: 80px;
+    font-family: "Comfortaa", serif;
+    color: #fffffe;
+}
+
+form{
+    background-color: #b8c1ec;
+    padding: 30px;
+    padding-bottom: 20px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+label{
+    font-size: 30px;
+    margin-right: 20px;
+    font-family: "Comfortaa", serif;
+}
+
+button, a{
+    all: unset;
+    cursor: pointer;
+    background-color: #eebbc3;
+    padding: 8px 16px;
+    border-radius: 3px;
+    margin: 20px 20px 5px 20px;
+    font-family: "Comfortaa", serif;
+}

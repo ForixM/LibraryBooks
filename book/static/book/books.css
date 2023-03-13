@@ -1,0 +1,31 @@
+.book-footer{
+    /*background-color: red;*/
+    margin: 15px 0;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.actions a {
+    text-decoration: none;
+    background-color: #ff8906;
+    color: #fffffe;
+    padding: 10px 15px;
+    border-radius: 3px;
+    font-family: "Golos Text", serif;
+    font-size: 20px;
+    margin: 0 40px;
+}
+
+.error{
+    margin-top: 13%;
+    font-size: 40px;
+}
+
+.book {
+    /*background-color: red;*/
+}

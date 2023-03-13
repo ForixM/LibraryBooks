@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if book %}
+        <title>Buy {{ book.title }}</title>
+    {% else %}
+        <title>Book doesn't exists</title>
+    {% endif %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/shop.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>DO YOU WANT TO BUY THIS BOOK?</h1>
+    <section class="shop">
+        <div class="book">
+            <div class="book-header">
+                <h2 class="title">{{ book.title }}</h2>
+                <h2 class="gender">{{ book.gender }}</h2>
+            </div>
+            <div class="book-paragraph">
+                <p>{{ book.description }}</p>
+            </div>
+            <div class="book-footer">
+                <h3>{{ book.price }} €</h3>
+                <form action="{% url 'book:buyBook' book.id %}" method="post">
+                    {% csrf_token %}
+                    <input name="yes" type="submit" value="YES">
+                    <input name="no" type="submit" value="NO">
+                </form>
+            </div>
+        </div>
+    </section>
+
+{#    <h1>You are about to buy {{ book.title }}, written by {{ book.author }}</h1>#}
+{#    <h2>Price: {{ book.price }}</h2>#}
+{#    <h3>Do you want to buy the book?</h3>#}
+
+</body>
+</html>

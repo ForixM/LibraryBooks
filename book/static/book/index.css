@@ -17,20 +17,61 @@ header *:last-child, section *:last-child, footer *:last-child { margin-bottom: 
 
 body {
     font-family: Arial, sans-serif;
+    background-color: #55423d;
+}
+
+footer {
+    background-color: #55423d;
+}
+
+.image{
+    width: 60px;
+    height: 60px;
+    align-self: center;
+    padding: 10px;
+}
+
+.header div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+}
+
+.header h1{
+    font-size: 50px;
+    margin-left: 5px;
+    color: #fffffe;
+    align-self: center;
+    width: 100%;
+}
+
+.warning h2 {
+    color: white;
+    text-align: center;
+    margin-top: 50px;
 }
 
 .header{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    background-color: #271c19;
 }
 
 .header a{
-    margin: 10px 20px;
+    text-decoration: none;
+    color: #271c19;
+    background-color: #ffc0ad;
+    /*margin: 10px 20px;*/
+    margin-right: 2%;
+    padding: 5px 15px;
+    border-radius: 3px;
+    align-self: center;
 }
 
 .hero-block{
-    background-color: #34495E;
+    background-color: #55423d;
     min-height: 80vh;
     display: flex;
     flex-direction: column;
@@ -38,13 +79,13 @@ body {
 }
 
 .hero-block h1{
-    color: #ECF0F1;
+    color: #fffffe;
     font-size: calc(30px + (64 - 30) * ((100vw - 320px) / (1600 - 320)));
     margin-bottom: 60px;
 }
 
 .hero-block h2{
-    color: #ECF0F1;
+    color: #fff3ec;
     font-size: calc(30px + (30 - 20) * ((100vw - 320px) / (1600 - 320)));
     margin-bottom: 60px;
 }
@@ -55,19 +96,22 @@ body {
 
 .hero-text-container a {
     color: black;
-    background-color: #2ECC71;
+    background-color: #ffc0ad;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 3px;
     text-decoration: none;
-    box-shadow: #00000099 5px 5px;
+    box-shadow: #00000044 5px 5px;
+    transition: 0.1s;
 }
 
 .hero-text-container a:hover{
-    background-color: #1EBC61;
+    background-color: #ffe0cd;
+    box-shadow: #00000044 7px 7px;
+    transition: 0.1s;
 }
 
 .hero-text-container a:active{
-    background-color: #0E7C51;
+    background-color: #dfa08d;
     box-shadow: #00000099 2px 2px;
     transition: 0.1s;
 }
@@ -84,66 +128,48 @@ body {
     justify-content: space-around;
 }
 
-.etagere{
+.menu {
+    background-color: #271c19;
     display: flex;
-    flex-direction: column;
-    /*padding: 30px 30px;*/
-    /*width: 20%;*/
-    min-width: 150px;
-    /*max-width: 300px;*/
-
-    height: 400px;
-    background-color: white;
-    padding: 20px 20px;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-.book{
-    overflow: hidden !important;
-    text-overflow: ellipsis;
-    background-color: #B86D00;
+.card {
     display: flex;
     flex-direction: column;
-    padding: 30px 30px;
-    border-radius: 0px 0px 0px 0px;
-    border-width: 0px 0px 0px 10px;
-    border-style: solid;
-    border-color: #A85D00;
-    /*height: 100%;*/
-    margin: 20px 5%;
-    width: 20%;
-    min-width: 150px;
-    max-width: 300px;
-    height: 400px;
-    text-decoration: none;
-    color: black;
+    justify-content: space-around;
+    width: 25%;
+    background-color: #ffc0ad;
+    margin: 100px 0;
+    padding: 20px;
+    border-radius: 3px;
+    height: 250px;
+}
+
+.menu h2 {
     text-align: center;
     font-size: 40px;
-    font-family: 'Dancing Script', Arial, serif;
+    color: #271c19;
 }
 
-.book:hover {
-    width: 25%;
-    max-width: 320px;
-    height: 420px;
-    box-shadow: #00000050 10px 10px 10px;
+.menu p {
+    color: #271c19;
+    text-align: start;
 }
 
-.book a {
-    overflow: hidden !important;
-    text-overflow: ellipsis;
-    background-color: #E67E22;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
+.tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tags a {
     text-decoration: none;
-}
-
-.book a:hover{
-    background-color: #D35400;
-}
-
-.book a:active{
-    background-color: #C34400;
+    background-color: #fffffe;
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: #271c19;
 }
 
 .empty{
@@ -156,6 +182,7 @@ body {
 
 .slide-in-bottom {
     animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    margin: 10%;
 }
 
 @keyframes slide-in-bottom {
