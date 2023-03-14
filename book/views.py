@@ -119,10 +119,17 @@ class CreateBookView(generic.FormView):
     form_class = CreateBookForm  # The form that the view will be based. It is located in forms.py
     success_url = reverse_lazy('book:ownedBooks')
 
+    def form_invalid(self, form):
+        if 'cancel' in self.request.POST:
+            return HttpResponseRedirect(reverse('book:index'))
+        return super().form_invalid(form)
+
     # This function will be called when the user will submit the form
     def form_valid(self, form):
         if 'create' in self.request.POST:
             book = form.create_book(self.request.user)
+        if 'cancel' in self.request.POST:
+            return HttpResponseRedirect(reverse('book:index'))
         return super().form_valid(form)
 
     # This function is called before the page will be sent in order to verify if the user is authenticated
