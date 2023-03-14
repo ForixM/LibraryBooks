@@ -24,6 +24,10 @@ class OwnedBooksView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'BOOK MANAGER'
         context['owned'] = True
+        try:
+            context['wallet'] = Wallet.objects.get(owner_id=self.request.user.id)
+        except(KeyError, Wallet.DoesNotExist):
+            return context
         return context
 
     def get_queryset(self):
@@ -50,6 +54,10 @@ class PurchasedBooksView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'PURCHASED BOOKS'
         context['owned'] = False
+        try:
+            context['wallet'] = Wallet.objects.get(owner_id=self.request.user.id)
+        except(KeyError, Wallet.DoesNotExist):
+            return context
         return context
 
     def get_queryset(self):
