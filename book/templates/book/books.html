@@ -27,16 +27,22 @@
         {% endif %}
     </section>
     <section class="actions">
-        {% if owned %}
-            <a href="{% url 'book:create' %}">CREATE YOUR BOOK</a>
-            <a href="{% url 'book:shop' %}">BUY A BOOK</a>
-            <a href="{% url 'book:purchasedBooks' %}">SEE PURCHASED BOOKS</a>
-        {% else %}
-            <a href="{% url 'book:shop' %}">BUY A BOOK</a>
-            <a href="{% url 'book:ownedBooks' %}">SEE YOUR BOOKS</a>
-        {% endif %}
+        <a href="{% url 'book:create' %}">CREATE YOUR BOOK</a>
+        <a href="{% url 'book:ownedBooks' %}">OWNED BOOKS</a>
+        <a href="{% url 'book:purchasedBooks' %}">PURCHASED BOOKS</a>
         <a href="{% url 'book:index' %}">MENU</a>
     </section>
+{#    <section class="actions">#}
+{#        {% if owned %}#}
+{#            <a href="{% url 'book:create' %}">CREATE YOUR BOOK</a>#}
+{#            <a href="{% url 'book:shop' %}">BUY A BOOK</a>#}
+{#            <a href="{% url 'book:purchasedBooks' %}">SEE PURCHASED BOOKS</a>#}
+{#        {% else %}#}
+{#            <a href="{% url 'book:shop' %}">BUY A BOOK</a>#}
+{#            <a href="{% url 'book:ownedBooks' %}">SEE YOUR BOOKS</a>#}
+{#        {% endif %}#}
+{#        <a href="{% url 'book:index' %}">MENU</a>#}
+{#    </section>#}
     <section class="shop">
         {% if library %}
             {% for book in library %}
