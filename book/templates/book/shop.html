@@ -22,6 +22,7 @@
         {% endif %}
     </section>
     <section class="actions">
+        <a href="{% url 'book:create' %}">CREATE YOUR BOOK</a>
         <a href="{% url 'book:ownedBooks' %}">OWNED BOOKS</a>
         <a href="{% url 'book:purchasedBooks' %}">PURCHASED BOOKS</a>
         <a href="{% url 'book:index' %}">MENU</a>

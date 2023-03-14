@@ -121,8 +121,9 @@ class CreateBookView(generic.FormView):
 
     # This function will be called when the user will submit the form
     def form_valid(self, form):
-        book = form.create_book(self.request.user)
-        return HttpResponseRedirect(reverse('book:ownedBooks'))
+        if 'create' in self.request.POST:
+            book = form.create_book(self.request.user)
+        return super().form_valid(form)
 
     # This function is called before the page will be sent in order to verify if the user is authenticated
     # Otherwise, it will redirect it to the main page.
