@@ -18,6 +18,14 @@
 </head>
 <body>
     <h1>{{ title }}</h1>
+    <section class="wallet">
+        {% if wallet %}
+            <h2>YOUR WALLET: {{ wallet.balance }} €</h2>
+        {% endif %}
+        {% if not user.is_authenticated %}
+            <h2>You must be logged-in to buy a book.</h2>
+        {% endif %}
+    </section>
     <section class="actions">
         {% if owned %}
             <a href="{% url 'book:create' %}">CREATE YOUR BOOK</a>
