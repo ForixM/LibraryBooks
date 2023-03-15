@@ -18,7 +18,10 @@ class EditBookForm(forms.Form):
     price = forms.FloatField()
 
     def is_valid(self):
-        if float(self.data.get('price')) < 0 or float(self.data.get('num_pages')) < 0:
+        try:
+            if float(self.data.get('price')) <= 0 or float(self.data.get('num_pages')) < 0:
+                return False
+        except(KeyError, ValueError):
             return False
         return super().is_valid()
 
@@ -43,7 +46,10 @@ class CreateBookForm(forms.Form):
     price = forms.FloatField()
 
     def is_valid(self):
-        if float(self.data.get('price')) < 0 or float(self.data.get('num_pages')) < 0:
+        try:
+            if float(self.data.get('price')) < 0 or float(self.data.get('num_pages')) < 0:
+                return False
+        except(KeyError, ValueError):
             return False
         return super().is_valid()
 
