@@ -12,13 +12,24 @@ class ConfirmationForm(forms.Form):
 class EditBookForm(forms.Form):
     title = forms.CharField()
     author = forms.CharField()
+    description = forms.CharField()
+    gender = forms.CharField()
     num_pages = forms.IntegerField()
+    price = forms.FloatField()
+
+    def is_valid(self):
+        if float(self.data.get('price')) < 0 or float(self.data.get('num_pages')) < 0:
+            return False
+        return super().is_valid()
 
     # This custom def will apply the book update in the database
     def update_book(self, book):
         book.title = self.data['title']
         book.author = self.data['author']
+        book.description = self.data['description']
+        book.gender = self.data['gender']
         book.num_pages = self.data['num_pages']
+        book.price = self.data['price']
         book.save()
 
 
@@ -29,7 +40,12 @@ class CreateBookForm(forms.Form):
     description = forms.CharField()
     gender = forms.CharField()
     num_pages = forms.IntegerField()
-    price = forms.IntegerField()
+    price = forms.FloatField()
+
+    def is_valid(self):
+        if float(self.data.get('price')) < 0 or float(self.data.get('num_pages')) < 0:
+            return False
+        return super().is_valid()
 
     # This custom def will apply the book create in the database
     def create_book(self, user):

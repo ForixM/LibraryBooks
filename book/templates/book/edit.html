@@ -19,12 +19,18 @@
                 <div class="champs">
                     <label>Title:</label>
                     <label>Author:</label>
+                    <label>Description:</label>
+                    <label>Gender:</label>
                     <label>Number of pages:</label>
+                    <label>Price</label>
                 </div>
                 <div class="champs2">
                     <input name="title" type="text" value="{{ book.title }}">
                     <input name="author" type="text" value="{{ book.author }}">
+                    <input name="description" type="text" value="{{ book.description }}">
+                    <input name="gender" type="text" value="{{ book.gender }}">
                     <input name="num_pages" type="number" value="{{ book.num_pages }}">
+                    <input name="price" type="number" step="0.01" value="{{ book.price }}">
                 </div>
             </div>
             <input name="edit" class="submit-input" type="submit" value="Validate">
