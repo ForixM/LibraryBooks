@@ -135,6 +135,8 @@ class CreateBookView(generic.FormView):
     # This function is called before the page will be sent in order to verify if the user is authenticated
     # Otherwise, it will redirect it to the main page.
     def dispatch(self, request, *args, **kwargs):
+        print('test: ', self.request.GET)
+        print('test: ', self.request.get_full_path_info())
         if not self.request.user.is_authenticated:
             return HttpResponseRedirect(reverse('book:index'))
         return super().dispatch(request, *args, **kwargs)

@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
-    test = models.Field
     publication_date = models.DateTimeField('date published')
     num_pages = models.IntegerField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='related_primary_manual_roats')

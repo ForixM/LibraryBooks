@@ -23,3 +23,9 @@ who bought or created them. In addition to that, a money-like philosophy have be
 each account have their own balance, and with the latter, book can be purchased.
 
 Now, all pages have their own or shared .css file.
+
+Many unit tests are available in order to check every functionality of the website.
+These unit tests are divided in three class:
+- The first one aims to test direct interaction to the database.
+- The second one aims to test the views when the user is not logged-in.
+- The third one aims to test again the views, but now a user is logged-in.
